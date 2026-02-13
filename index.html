@@ -213,7 +213,16 @@
 </head>
 
 <body>
+<script>
+  const correctPassword = "ГОКУЛТАНЬЯ143@"; // 🔐 change this to whatever you want
 
+  const userPassword = prompt("💖 Enter the secret password");
+
+  if (userPassword !== correctPassword) {
+    document.body.innerHTML = "";
+    alert("❌ Wrong password");
+  }
+</script>
   <!-- hearts -->
   <script>
     for(let i=0;i<26;i++){
@@ -446,13 +455,14 @@
         box.className = 'fadeUpIn';
 
         const h2 = document.createElement('h2');
-        h2.textContent = "Will you be my Valentine? 💘";
+        h2.textContent = "Ты станешь моей Валентинкой Танюша ? 💘";
+        h2.textContent = "Will you be my Valentine Танюша ? 💘";
 
         const btn = document.createElement('button');
-        btn.textContent = "Yes 💖";
+        btn.textContent = "Yes Да 💖";
 // NO button (runs away)
 const noBtn = document.createElement('button');
-noBtn.textContent = "No 😭";
+noBtn.textContent = "No Нет 😭";
 
 noBtn.style.position = "absolute";
 noBtn.style.left = "50%";
