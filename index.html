@@ -1,559 +1,166 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="robots" content="noindex, nofollow">
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Our Story 💗</title>
+<meta charset="UTF-8">
+<title>Our Story 💗</title>
 
-  <style>
-    :root{
-      --pink1:#ffb6c1;
-      --pink2:#ffc0cb;
-      --shadow: 0 22px 50px rgba(0,0,0,.25);
-    }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  background: #000;
+}
 
-    html,body{height:100%;margin:0}
-    body{
-      overflow:hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--pink1), var(--pink2));
-    }
+/* ================= LOCK BACKGROUND ================= */
+#lockBg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #ffb6c1, #ff8fab);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
 
-    /* floating hearts background */
-    .heart{
-      position:fixed; bottom:-60px; left:0;
-      font-size:22px;
-      opacity:.55;
-      animation: floatUp linear infinite;
-      pointer-events:none;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,.15));
-      z-index:1;
-    }
-    @keyframes floatUp{
-      from{ transform:translateY(0) translateX(0) scale(1); opacity:.55; }
-      to{ transform:translateY(-120vh) translateX(40px) scale(1.2); opacity:0; }
-    }
+/* ================= LOCK CARD ================= */
+#lockCard {
+  background: rgba(255,255,255,0.22);
+  padding: 28px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(0,0,0,.35);
+}
 
-    /* main stage */
-    #stage{
-      position:relative;
-      height:100%;
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      z-index:2;
-      padding: 18px;
-      box-sizing:border-box;
-    }
+#lockCard h1 {
+  margin: 0 0 10px;
+}
 
-    .frame{
-      width:min(1200px, 96vw);
-      height:min(760px, 92vh);
-      background: rgba(255,255,255,.16);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 26px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      overflow:hidden;
-      position:relative;
-    }
+#lockCard p {
+  margin: 0 0 14px;
+  opacity: .9;
+}
 
-    /* caption */
-    .caption{
-      position:absolute;
-      top:16px; left:18px; right:18px;
-      text-align:center;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(0,0,0,.55);
-      z-index:5;
-    }
-    .caption .ru{font-size:20px; font-weight:700; margin:0 0 6px 0;}
-    .caption .en{font-size:16px; font-weight:600; margin:0; opacity:.95;}
+#pwInput {
+  width: 220px;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  text-align: center;
+}
 
-    /* media area */
-    .mediaWrap{
-      position:absolute;
-      inset: 70px 18px 72px 18px;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      border-radius: 20px;
-      overflow:hidden;
-      background: rgba(255,255,255,.10);
-    }
+#unlockBtn {
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #ff5f8a;
+  color: white;
+}
 
-    .mediaWrap img, .mediaWrap video{
-      width:100%;
-      height:100%;
-      object-fit: contain;
-      object-position:center;
-      border-radius: 20px;
-      display:block;
-      background: rgba(0,0,0,.08);
-    }
+/* ================= FLOATING HEARTS ================= */
+.lock-heart {
+  position: fixed;
+  bottom: -40px;
+  font-size: 18px;
+  opacity: .35;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+}
 
-    .fadeUpIn{ animation: fadeUp .9s ease both; }
-    @keyframes fadeUp{
-      from{ opacity:0; transform: translateY(26px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
+@keyframes floatUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-120vh); }
+}
 
-    /* footer */
-    .footer{
-      position:absolute;
-      bottom:14px; left:18px; right:18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(0,0,0,.55);
-      z-index:6;
-      font-weight:700;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .pill{
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.22);
-      padding: 10px 14px;
-      border-radius: 999px;
-      display:flex;
-      gap:10px;
-      align-items:center;
-    }
-    .small{font-size:13px; font-weight:700; opacity:.95}
+/* ================= STORY AREA ================= */
+#story {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
 
-    button{
-      border:none;
-      background:#ff3f86;
-      color:#fff;
-      font-weight:800;
-      padding: 12px 18px;
-      border-radius: 999px;
-      cursor:pointer;
-      box-shadow: 0 14px 30px rgba(255,63,134,.35);
-    }
-    button:active{ transform: translateY(1px); }
-
-    /* start overlay */
-    #startOverlay{
-      position:fixed; inset:0;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background: rgba(0,0,0,.35);
-      z-index:999;
-    }
-    .startCard{
-      width:min(520px, 92vw);
-      background: rgba(255,255,255,.18);
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 26px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 22px 20px;
-      text-align:center;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(0,0,0,.55);
-    }
-    .startCard h1{margin:0 0 10px 0; font-size:26px;}
-    .startCard p{margin:0 0 16px 0; font-weight:700; opacity:.95;}
-
-    /* Final Valentine slide */
-    #valentineBox{
-      width:100%;
-      height:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(0,0,0,.55);
-      gap:14px;
-      position:relative;
-    }
-    #valentineBox h2{margin:0; font-size:34px; text-align:center; padding:0 16px;}
-    #hug{
-      display:none;
-      max-width:min(520px, 86%);
-      max-height: 52%;
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      background: rgba(255,255,255,.10);
-      padding: 10px;
-    }
-
-    /* Password intro */
-    #lockBg{
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 99999;
-      background: rgba(255, 182, 193, 0.25);
-      backdrop-filter: blur(10px);
-    }
-    #lockCard{
-      width: min(520px, 90vw);
-      padding: 22px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.18);
-      box-shadow: 0 22px 50px rgba(0,0,0,0.25);
-      text-align: center;
-      color:#fff;
-      text-shadow: 0 6px 18px rgba(0,0,0,.55);
-      border: 1px solid rgba(255,255,255,.22);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    #pwInput{
-      width: 80%;
-      padding: 12px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.35);
-      outline: none;
-      margin-top: 10px;
-    }
-    #unlockBtn{
-      margin-top: 12px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 0;
-      cursor: pointer;
-    }
-    .lock-heart{
-      position: fixed;
-      bottom: -40px;
-      font-size: 18px;
-      opacity: .35;
-      animation: floatUp 7s linear infinite;
-      z-index: 99998;
-      pointer-events: none;
-    }
-  </style>
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
 </head>
 
 <body>
-  <!-- Lock screen -->
-  <div id="lockBg">
-    <div id="lockCard">
-      <h1>For you, with love 💗</h1>
-      <p>“Every day with you feels like my favorite chapter.”</p>
-      <p>Enter the secret word to open our story ✨</p>
-      <input id="pwInput" type="password" placeholder="Secret word…" />
-      <button id="unlockBtn">Unlock 💖</button>
-    </div>
+
+<!-- 🔒 LOCK SCREEN -->
+<div id="lockBg">
+  <div id="lockCard">
+    <h1>For you 💗</h1>
+    <p>Enter the secret word to open our story ✨</p>
+    <input id="pwInput" type="password" placeholder="Secret word">
+    <br>
+    <button id="unlockBtn">Unlock 💖</button>
   </div>
+</div>
 
-  <audio id="lockMusic" src="music.mp3" loop preload="auto"></audio>
+<!-- 🎵 LOCK MUSIC -->
+<audio id="lockMusic" src="music.mp3" autoplay loop></audio>
 
-  <!-- Start overlay -->
-  <div id="startOverlay">
-    <div class="startCard">
-      <h1>Our Story 💗</h1>
-      <p>Tap START once — it enables music + autoplay on Safari.</p>
-      <button id="startBtn">START ▶️</button>
-      <div class="small" style="margin-top:10px;opacity:.9;">
-        Videos will be muted so our background song stays.
-      </div>
-    </div>
-  </div>
+<!-- 💕 STORY -->
+<div id="story">
+  <video id="video" src="video.mp4" controls autoplay></video>
+</div>
 
-  <!-- Main stage -->
-  <div id="stage">
-    <div class="frame">
-      <div class="caption">
-        <p class="ru" id="capRU"></p>
-        <p class="en" id="capEN"></p>
-      </div>
+<script>
+/* ========= PASSWORD ========= */
+const correctPassword = "ГОКУЛТАНЬЯ143@";
 
-      <div class="mediaWrap" id="mediaWrap"></div>
+const lockBg = document.getElementById("lockBg");
+const unlockBtn = document.getElementById("unlockBtn");
+const pwInput = document.getElementById("pwInput");
+const lockMusic = document.getElementById("lockMusic");
+const story = document.getElementById("story");
 
-      <div class="footer">
-        <div class="pill"><span class="small" id="chapter">Chapter</span></div>
-        <div class="pill"><span class="small" id="counter">1 / 1</span></div>
-        <div class="pill"><button id="musicBtn">Music ♪</button></div>
-      </div>
-    </div>
-  </div>
+/* ========= HEARTS ========= */
+for (let i = 0; i < 30; i++) {
+  const h = document.createElement("div");
+  h.className = "lock-heart";
+  h.textContent = "💗";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (5 + Math.random() * 6) + "s";
+  document.body.appendChild(h);
+}
 
-  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+/* ========= UNLOCK ========= */
+unlockBtn.addEventListener("click", () => {
+  const userPassword = pwInput.value;
 
-  <script>
-    // ===== Background hearts (add once) =====
-    (function addHearts(){
-      for(let i=0;i<26;i++){
-        const h=document.createElement('div');
-        h.className='heart';
-        h.textContent='❤';
-        h.style.left = (Math.random()*100)+'vw';
-        h.style.animationDuration = (5+Math.random()*6)+'s';
-        h.style.animationDelay = (Math.random()*3)+'s';
-        h.style.fontSize = (16+Math.random()*18)+'px';
-        document.body.appendChild(h);
-      }
-    })();
+  if (userPassword !== correctPassword) {
+    alert("❌ Wrong password");
+    pwInput.value = "";
+    pwInput.focus();
+    return;
+  }
 
-    // ===== Lock hearts =====
-    (function addLockHearts(){
-      for (let i = 0; i < 26; i++) {
-        const h = document.createElement("div");
-        h.className = "lock-heart";
-        h.textContent = "💗";
-        h.style.left = (Math.random() * 100) + "vw";
-        h.style.animationDuration = (5 + Math.random() * 6) + "s";
-        h.style.animationDelay = (Math.random() * 3) + "s";
-        h.style.fontSize = (14 + Math.random() * 18) + "px";
-        document.body.appendChild(h);
-      }
-    })();
+  // SUCCESS
+  lockMusic.pause();
+  lockMusic.currentTime = 0;
 
-    // ======= ORDER =======
-    const sequence = [
-      {type:'text', ru:'История двух красивых людей…', en:'The story of two beautiful souls…', chapter:'Prologue'},
-      {type:'img',  src:'photo1.jpg',  ru:'Мы встретились онлайн.', en:'We met online.', chapter:'Online'},
-      {type:'video',src:'video01.mp4', ru:'Видеозвонки — и твоя улыбка.', en:'Video calls — and your smile.', chapter:'Online'},
-      {type:'valentine', chapter:'Final'}
-    ];
+  lockBg.remove();      // REMOVE lock fully
+  story.style.display = "block";
 
-    // timings
-    const IMG_MS   = 6500;
-    const VIDEO_MS = 9000;
+  document.getElementById("video").play();
+});
 
-    // DOM
-    const mediaWrap = document.getElementById('mediaWrap');
-    const capRU = document.getElementById('capRU');
-    const capEN = document.getElementById('capEN');
-    const counter = document.getElementById('counter');
-    const chapterEl = document.getElementById('chapter');
-    const bgm = document.getElementById('bgm');
-    const startOverlay = document.getElementById('startOverlay');
-    const startBtn = document.getElementById('startBtn');
-    const musicBtn = document.getElementById('musicBtn');
+/* ENTER KEY SUPPORT */
+pwInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") unlockBtn.click();
+});
+</script>
 
-    const lockBg = document.getElementById("lockBg");
-    const pwInput = document.getElementById("pwInput");
-    const unlockBtn = document.getElementById("unlockBtn");
-    const lockMusic = document.getElementById("lockMusic");
-
-    let i = 0;
-    let timer = null;
-    let started = false;
-    let unlocked = false;
-
-    function clearMedia(){
-      while(mediaWrap.firstChild) mediaWrap.removeChild(mediaWrap.firstChild);
-    }
-
-    function setCaption(item){
-      capRU.textContent = item.ru || '';
-      capEN.textContent = item.en || '';
-      chapterEl.textContent = `Chapter: ${item.chapter || ''}`;
-    }
-
-    function scheduleNext(ms){
-      if(timer) clearTimeout(timer);
-      timer = setTimeout(()=>{
-        i = Math.min(i+1, sequence.length-1);
-        showSlide(i);
-      }, ms);
-    }
-
-    // IMPORTANT: function name is showSlide (case-sensitive)
-    function showSlide(index){
-      const item = sequence[index];
-      clearMedia();
-      setCaption(item);
-      counter.textContent = `${index+1} / ${sequence.length}`;
-
-      if(item.type === 'img'){
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = '';
-        img.className = 'fadeUpIn';
-        mediaWrap.appendChild(img);
-        scheduleNext(IMG_MS);
-
-      } else if(item.type === 'video'){
-        const v = document.createElement('video');
-        v.src = item.src;
-        v.muted = true;          // required for autoplay on Safari
-        v.autoplay = true;
-        v.loop = true;
-        v.playsInline = true;    // required on iOS Safari
-        v.preload = "auto";
-        v.controls = true;       // shows controls if autoplay fails (debug helper)
-        v.className = 'fadeUpIn';
-        mediaWrap.appendChild(v);
-
-        // try to play; if blocked, user must tap play once (Safari)
-        const p = v.play();
-        if (p && p.catch) p.catch(()=>{});
-
-        scheduleNext(VIDEO_MS);
-
-      } else if(item.type === 'text'){
-        const box = document.createElement('div');
-        box.style.width="100%";
-        box.style.height="100%";
-        box.style.display="flex";
-        box.style.flexDirection="column";
-        box.style.justifyContent="center";
-        box.style.alignItems="center";
-        box.style.color="#fff";
-        box.style.textShadow="0 6px 18px rgba(0,0,0,.55)";
-        box.className = 'fadeUpIn';
-
-        const ru = document.createElement('div');
-        ru.style.fontSize="30px";
-        ru.style.fontWeight="900";
-        ru.style.textAlign="center";
-        ru.style.margin="0 16px 12px 16px";
-        ru.textContent = item.ru || '';
-
-        const en = document.createElement('div');
-        en.style.fontSize="22px";
-        en.style.fontWeight="800";
-        en.style.textAlign="center";
-        en.style.margin="0 16px";
-        en.style.opacity=".96";
-        en.textContent = item.en || '';
-
-        box.appendChild(ru);
-        box.appendChild(en);
-        mediaWrap.appendChild(box);
-
-        scheduleNext(IMG_MS);
-
-      } else if(item.type === 'valentine'){
-        capRU.textContent = '';
-        capEN.textContent = '';
-        chapterEl.textContent = 'Chapter: Final';
-
-        const box = document.createElement('div');
-        box.id = "valentineBox";
-        box.className = 'fadeUpIn';
-
-        const h2 = document.createElement('h2');
-        h2.innerHTML = `Ты станешь моей Валентинкой, Танюша? 💘<br>Will you be my Valentine, Танюша? 💘`;
-
-        const yesBtn = document.createElement('button');
-        yesBtn.textContent = "Yes Да 💖";
-
-        const noBtn = document.createElement('button');
-        noBtn.textContent = "No Нет 😭";
-        noBtn.style.position = "absolute";
-        noBtn.style.left = "50%";
-        noBtn.style.top = "60%";
-        noBtn.style.transform = "translate(-50%, -50%)";
-        noBtn.style.zIndex = "9999";
-        noBtn.style.padding = "10px 18px";
-        noBtn.style.borderRadius = "999px";
-        noBtn.style.border = "0";
-        noBtn.style.cursor = "pointer";
-
-        const hug = document.createElement('img');
-        hug.id = "hug";
-        hug.src = "hug.gif";
-        hug.alt = "hug";
-
-        function moveNo(){
-          const boxRect = box.getBoundingClientRect();
-          const btnRect = noBtn.getBoundingClientRect();
-
-          const maxX = Math.max(0, boxRect.width - btnRect.width);
-          const maxY = Math.max(0, boxRect.height - btnRect.height);
-
-          const x = Math.random() * maxX;
-          const y = Math.random() * maxY;
-
-          noBtn.style.left = x + "px";
-          noBtn.style.top = y + "px";
-          noBtn.style.transform = "translate(0,0)";
-        }
-
-        noBtn.addEventListener("mouseenter", moveNo);
-        noBtn.addEventListener("mouseover", moveNo);
-        noBtn.addEventListener("touchstart", (e) => {
-          e.preventDefault();
-          moveNo();
-        }, { passive: false });
-
-        yesBtn.onclick = () => {
-          hug.style.display = "block";
-        };
-
-        box.appendChild(h2);
-        box.appendChild(yesBtn);
-        box.appendChild(noBtn);
-        box.appendChild(hug);
-        mediaWrap.appendChild(box);
-
-        if(timer) clearTimeout(timer);
-      }
-    }
-
-    function start(){
-      if(started) return;
-      started = true;
-      startOverlay.style.display='none';
-
-      // background music (only after user gesture)
-      bgm.volume = 0.75;
-      const p = bgm.play();
-      if (p && p.catch) p.catch(()=>{});
-
-      // only start slides after unlock
-      if (unlocked) showSlide(i);
-    }
-
-    musicBtn.addEventListener('click', ()=>{
-      if(bgm.paused){
-        const p = bgm.play();
-        if (p && p.catch) p.catch(()=>{});
-      } else {
-        bgm.pause();
-      }
-    });
-
-    startBtn.addEventListener('click', start);
-
-    // ===== Lock logic =====
-    const correctPassword = "GOKULTANYA143@";
-
-    unlockBtn.addEventListener("click", () => {
-      const userPassword = pwInput.value || "";
-      if (userPassword !== correctPassword) {
-        alert("❌ Wrong password");
-        pwInput.value = "";
-        pwInput.focus();
-        return;
-      }
-
-      unlocked = true;
-      lockBg.style.display = "none";
-
-      lockMusic.pause();
-      lockMusic.currentTime = 0;
-
-      // if user already pressed START, begin immediately
-      if (started) showSlide(0);
-    });
-
-    pwInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") unlockBtn.click();
-    });
-
-    window.addEventListener("load", () => {
-      pwInput.focus();
-      // Optional: start lock music ONLY after first user interaction
-      // document.body.addEventListener("click", () => { lockMusic.play().catch(()=>{}); }, { once:true });
-    });
-  </script>
 </body>
 </html>
