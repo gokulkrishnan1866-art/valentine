@@ -210,19 +210,93 @@
     transform: scale(1.0); 
   }
 }
+    /* ===== Password intro background ===== */
+#lockBg{
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,182,193,.95), rgba(255,204,220,.95));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index: 999999;
+}
+
+#lockCard{
+  width: min(520px, 92vw);
+  padding: 28px 22px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.22);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.18);
+  text-align:center;
+  color: rgba(255,255,255,.92);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+#lockCard h1{
+  margin: 0 0 10px;
+  font-size: 26px;
+  text-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+
+#lockCard p{
+  margin: 0;
+  opacity: .95;
+  line-height: 1.35;
+  text-shadow: 0 2px 12px rgba(0,0,0,.2);
+}
+
+/* floating hearts */
+.lock-heart{
+  position: fixed;
+  bottom: -40px;
+  font-size: 18px;
+  opacity: .35;
+  animation: floatUp linear infinite;
+  z-index: 999998;
+  pointer-events:none;
+}
+@keyframes floatUp{
+  from { transform: translateY(0) translateX(0); }
+  to   { transform: translateY(-110vh) translateX(40px); }
+}
   </style>
 </head>
 
 <body>
+  <div id="lockBg">
+  <div id="lockCard">
+    <h1>For you, with love 💗</h1>
+    <p>Enter the secret word to open our story ✨</p>
+  </div>
+</div>
 <script>
-  const correctPassword = "ГОКУЛТАНЬЯ143@"; // 🔐 change this to whatever you want
+  const correctPassword = "ГОКУЛТАНЬЯ143@";
 
-  const userPassword = prompt("💖 Enter the secret password");
-
-  if (userPassword !== correctPassword) {
-    document.body.innerHTML = "";
-    alert("❌ Wrong password");
+  // hearts behind the prompt
+  for (let i = 0; i < 26; i++) {
+    const h = document.createElement("div");
+    h.className = "lock-heart";
+    h.textContent = "💗";
+    h.style.left = (Math.random() * 100) + "vw";
+    h.style.fontSize = (14 + Math.random() * 18) + "px";
+    h.style.animationDuration = (6 + Math.random() * 6) + "s";
+    h.style.animationDelay = (Math.random() * 2) + "s";
+    document.body.appendChild(h);
   }
+
+  setTimeout(() => {
+    const userPassword = prompt("💗 Enter the secret word");
+
+    if (userPassword !== correctPassword) {
+      document.body.innerHTML = "";
+      document.body.style.background = "#000";
+      alert("❌ Wrong password");
+    } else {
+      document.getElementById("lockBg")?.remove();
+      document.querySelectorAll(".lock-heart").forEach(x => x.remove());
+    }
+  }, 250);
 </script>
   <!-- hearts -->
   <script>
