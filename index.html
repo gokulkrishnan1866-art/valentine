@@ -538,9 +538,22 @@
         hug.id = "hug";
         hug.src = "hug.gif";
         hug.alt = "hug";
+btn.onclick = () => {
+  hug.style.display = "block";
 
-        btn.onclick = () => { hug.style.display = "block"; };
-
+  // add message (only once)
+  if (!document.getElementById("valMsg")) {
+    const msg = document.createElement("div");
+    msg.id = "valMsg";
+    msg.style.fontSize = "22px";
+    msg.style.fontWeight = "900";
+    msg.style.textAlign = "center";
+    msg.style.marginTop = "10px";
+    msg.style.textShadow = "0 6px 18px rgba(0,0,0,.55)";
+    msg.textContent = "Happy Valentine’s Day Tanya 💗 To us. Love you, my sunshine ☀️";
+    box.appendChild(msg);
+  }
+};
         box.appendChild(h2);
         box.appendChild(btn);
         box.appendChild(noBtn);
