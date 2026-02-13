@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Our Story 💗</title>
+
+  <style>
+    :root{
+      --pink1:#ffb6c1;
+      --pink2:#ffc0cb;
+      --glass: rgba(255,255,255,.18);
+      --shadow: 0 22px 50px rgba(0,0,0,.25);
+    }
+
+    html,body{height:100%;margin:0}
+    body{
+      overflow:hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--pink1), var(--pink2));
+    }
+
+    /* floating hearts background */
+    .heart{
+      position:fixed; bottom:-60px; left:0;
+      font-size:22px;
+      opacity:.55;
+      animation: floatUp linear infinite;
+      pointer-events:none;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,.15));
+      z-index:1;
+    }
+    @keyframes floatUp{
+      from{ transform:translateY(0) translateX(0) scale(1); opacity:.55; }
+      to{ transform:translateY(-120vh) translateX(40px) scale(1.2); opacity:0; }
+    }
+
+    /* main stage */
+    #stage{
+      position:relative;
+      height:100%;
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:2;
+      padding: 18px;
+      box-sizing:border-box;
+    }
+
+    .frame{
+      width:min(1200px, 96vw);
+      height:min(760px, 92vh);
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* caption on top – NO blur panel */
+    .caption{
+      position:absolute;
+      top:16px; left:18px; right:18px;
+      text-align:center;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+      z-index:5;
+      padding: 0;
+    }
+    .caption .ru{font-size:20px; font-weight:700; margin:0 0 6px 0;}
+    .caption .en{font-size:16px; font-weight:600; margin:0; opacity:.95;}
+
+    /* media area */
+    .mediaWrap{
+      position:absolute;
+      inset: 70px 18px 72px 18px; /* leaves room for caption & footer */
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-radius: 20px;
+      overflow:hidden;
+      background: rgba(255,255,255,.10);
+    }
+
+    img, video{
+      width:100%;
+      height:100%;
+      object-fit: contain;       /* shows full image/video */
+      object-position:center;
+      border-radius: 20px;
+      display:block;
+      background: rgba(0,0,0,.08);
+    }
+
+    /* slide animation */
+    .fadeUpIn{
+      animation: fadeUp .9s ease both;
+    }
+    @keyframes fadeUp{
+      from{ opacity:0; transform: translateY(26px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    /* footer */
+    .footer{
+      position:absolute;
+      bottom:14px; left:18px; right:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+      z-index:6;
+      font-weight:700;
+    }
+    .pill{
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      padding: 10px 14px;
+      border-radius: 999px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .small{font-size:13px; font-weight:700; opacity:.95}
+
+    button{
+      border:none;
+      background:#ff3f86;
+      color:#fff;
+      font-weight:800;
+      padding: 12px 18px;
+      border-radius: 999px;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(255,63,134,.35);
+    }
+    button:active{ transform: translateY(1px); }
+
+    /* start overlay (fixes Safari autoplay limits) */
+    #startOverlay{
+      position:fixed; inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: rgba(0,0,0,.35);
+      z-index:999;
+    }
+    .startCard{
+      width:min(520px, 92vw);
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 22px 20px;
+      text-align:center;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+    }
+    .startCard h1{margin:0 0 10px 0; font-size:26px;}
+    .startCard p{margin:0 0 16px 0; font-weight:700; opacity:.95;}
+
+    /* Final Valentine slide */
+    #valentineBox{
+      width:100%;
+      height:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+      gap:14px;
+    }
+    #valentineBox h2{margin:0; font-size:36px;}
+    #hug{
+      display:none;
+      max-width:min(520px, 86%);
+      max-height: 52%;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.10);
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- hearts -->
+  <script>
+    for(let i=0;i<26;i++){
+      const h=document.createElement('div');
+      h.className='heart';
+      h.textContent='❤';
+      h.style.left = (Math.random()*100)+'vw';
+      h.style.animationDuration = (5+Math.random()*6)+'s';
+      h.style.animationDelay = (Math.random()*3)+'s';
+      h.style.fontSize = (16+Math.random()*18)+'px';
+      document.addEventListener('DOMContentLoaded', ()=>document.body.appendChild(h));
+    }
+  </script>
+
+  <div id="startOverlay">
+    <div class="startCard">
+      <h1>Our Story 💗</h1>
+      <p>Tap START once — it enables music + autoplay on Safari.</p>
+      <button id="startBtn">START ▶️</button>
+      <div class="small" style="margin-top:10px;opacity:.9;">
+        Videos will be muted so our background song stays.
+      </div>
+    </div>
+  </div>
+
+  <div id="stage">
+    <div class="frame">
+      <div class="caption">
+        <p class="ru" id="capRU"></p>
+        <p class="en" id="capEN"></p>
+      </div>
+
+      <div class="mediaWrap" id="mediaWrap"></div>
+
+      <div class="footer">
+        <div class="pill">
+          <span class="small" id="chapter">Chapter</span>
+        </div>
+        <div class="pill">
+          <span class="small" id="counter">1 / 1</span>
+        </div>
+        <div class="pill">
+          <button id="musicBtn">Music ♪</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgm" src="assets/music.mp3" loop preload="auto"></audio>
+
+  <script>
+    // ======= ORDER (updated per your rules for video05–video09) =======
+    const sequence = [
+      {type:'text', ru:'История двух красивых людей…', en:'The story of two beautiful souls…', chapter:'Prologue'},
+
+      // Online
+      {type:'img',  src:'assets/photo1.jpg',  ru:'Мы встретились онлайн.', en:'We met online.', chapter:'Online'},
+      {type:'img',  src:'assets/photo2.jpg',  ru:'Сначала были сообщения.', en:'First, it was texts.', chapter:'Online'},
+      {type:'img',  src:'assets/photo3.jpg',  ru:'Потом голос — и стало теплее.', en:'Then voice calls — and it felt warmer.', chapter:'Online'},
+      {type:'img',  src:'assets/photo4.jpg',  ru:'Мы смеялись до слёз.', en:'We laughed until it hurt.', chapter:'Online'},
+      {type:'img',  src:'assets/photo5.jpg',  ru:'Иногда было тяжело…', en:'Sometimes it was hard…', chapter:'Online'},
+      {type:'img',  src:'assets/photo6.jpg',  ru:'Но мы оставались рядом.', en:'But we stayed close.', chapter:'Online'},
+      {type:'img',  src:'assets/photo7.jpg',  ru:'Ночи разговоров.', en:'Nights full of talks.', chapter:'Online'},
+      {type:'img',  src:'assets/photo8.jpg',  ru:'И маленькие моменты счастья.', en:'And small moments of happiness.', chapter:'Online'},
+
+      {type:'video',src:'assets/video01.mp4', ru:'Видеозвонки — и твоя улыбка.', en:'Video calls — and your smile.', chapter:'Online'},
+      {type:'video',src:'assets/video02.mp4', ru:'Смешные минуты, которые остаются.', en:'Funny moments that stay forever.', chapter:'Online'},
+
+      {type:'img',  src:'assets/photo9.jpg',  ru:'Мы делились всем.', en:'We shared everything.', chapter:'Online'},
+      {type:'img',  src:'assets/photo10.jpg', ru:'Даже молчание было уютным.', en:'Even silence felt safe.', chapter:'Online'},
+      {type:'img',  src:'assets/photo11.jpg', ru:'Дни ожидания.', en:'Days of waiting.', chapter:'Online'},
+      {type:'img',  src:'assets/photo12.jpg', ru:'И вера, что мы встретимся.', en:'And belief we would meet.', chapter:'Online'},
+
+      {type:'video',src:'assets/video03.mp4', ru:'Ещё один звонок… ближе к встрече.', en:'Another call… closer to meeting.', chapter:'Online'},
+      {type:'video',src:'assets/video04.mp4', ru:'Мы уже были “мы”.', en:'We were already “us”.', chapter:'Online'},
+
+      // Meeting
+      {type:'img',  src:'assets/photo14.jpg', ru:'И вот… день пришёл.', en:'And then… the day arrived.', chapter:'Meeting'},
+      {type:'img',  src:'assets/photo15.jpg', ru:'Я готовился увидеть тебя.', en:'I prepared myself to see you.', chapter:'Meeting'},
+      {type:'img',  src:'assets/photo16.jpg', ru:'Сердце било сильнее.', en:'My heart beat louder.', chapter:'Meeting'},
+      {type:'img',  src:'assets/photo13.jpg', ru:'Наконец — рядом.', en:'Finally — together.', chapter:'Meeting'},
+      {type:'img',  src:'assets/photo17.jpg', ru:'Первый настоящий момент.', en:'Our first real moment.', chapter:'Meeting'},
+
+      // Together (travel etc.)
+      {type:'img',  src:'assets/photo18.jpg', ru:'С этого момента мы шли вместе.', en:'From that moment, we walked together.', chapter:'Together'},
+      {type:'img',  src:'assets/photo19.jpg', ru:'Новые улицы, новые воспоминания.', en:'New streets, new memories.', chapter:'Together'},
+      {type:'img',  src:'assets/photo20.jpg', ru:'И мир стал мягче.', en:'And the world became softer.', chapter:'Together'},
+      {type:'img',  src:'assets/photo21.jpg', ru:'Плечом к плечу.', en:'Side by side.', chapter:'Together'},
+      {type:'img',  src:'assets/photo22.jpg', ru:'Счастье — это “мы”.', en:'Happiness is “us”.', chapter:'Together'},
+      {type:'img',  src:'assets/photo23.jpg', ru:'Просто быть рядом.', en:'Just being close.', chapter:'Together'},
+      {type:'img',  src:'assets/photo24.jpg', ru:'Каждый день как подарок.', en:'Every day felt like a gift.', chapter:'Together'},
+
+      // ✅ video05 after photo24
+      {type:'video',src:'assets/video05.mp4', ru:'Ещё один момент — навсегда.', en:'Another moment — forever.', chapter:'Together'},
+
+      {type:'img',  src:'assets/photo25.jpg', ru:'Взгляды, которые говорят всё.', en:'Looks that say everything.', chapter:'Together'},
+      {type:'img',  src:'assets/photo26.jpg', ru:'Смех, который не забывается.', en:'Laughter you never forget.', chapter:'Together'},
+      {type:'img',  src:'assets/photo27.jpg', ru:'И планы на дальше.', en:'And plans for what’s next.', chapter:'Together'},
+      {type:'img',  src:'assets/photo28.jpg', ru:'С тобой — спокойно.', en:'With you — I feel calm.', chapter:'Together'},
+      {type:'img',  src:'assets/photo29.jpg', ru:'Небо было красивее.', en:'The sky looked prettier.', chapter:'Together'},
+
+      // ✅ video06 after photo29
+      {type:'video',src:'assets/video06.mp4', ru:'С тобой всё имеет смысл.', en:'With you, everything makes sense.', chapter:'Together'},
+
+      {type:'img',  src:'assets/photo30.jpg', ru:'Море — теплее.', en:'The sea felt warmer.', chapter:'Together'},
+      {type:'img',  src:'assets/photo31.jpg', ru:'А время — быстрее.', en:'And time — faster.', chapter:'Together'},
+      {type:'img',  src:'assets/photo32.jpg', ru:'Я выбираю тебя снова и снова.', en:'I choose you again and again.', chapter:'Together'},
+      {type:'img',  src:'assets/photo33.jpg', ru:'Пусть будет ещё больше “нас”.', en:'Let there be more of “us”.', chapter:'Together'},
+      {type:'img',  src:'assets/photo34.jpg', ru:'Ещё больше дорог.', en:'More roads ahead.', chapter:'Together'},
+      {type:'img',  src:'assets/photo35.jpg', ru:'Ещё больше закатов.', en:'More sunsets.', chapter:'Together'},
+      {type:'img',  src:'assets/photo36.jpg', ru:'И простых моментов.', en:'And simple moments.', chapter:'Together'},
+      {type:'img',  src:'assets/photo37.jpg', ru:'Которые становятся вечностью.', en:'That turn into forever.', chapter:'Together'},
+      {type:'img',  src:'assets/photo38.jpg', ru:'Ты — мой дом.', en:'You are my home.', chapter:'Together'},
+      {type:'img',  src:'assets/photo39.jpg', ru:'Где бы мы ни были.', en:'Wherever we are.', chapter:'Together'},
+      {type:'img',  src:'assets/photo40.jpg', ru:'И я хочу продолжать.', en:'And I want to continue.', chapter:'Together'},
+
+      // ✅ video07 after photo40, then video08, then video09
+      {type:'video',src:'assets/video07.mp4', ru:'Я люблю нашу историю.', en:'I love our story.', chapter:'Together'},
+      {type:'video',src:'assets/video08.mp4', ru:'И хочу ещё главы.', en:'And I want more chapters.', chapter:'Together'},
+      {type:'video',src:'assets/video09.mp4', ru:'Вместе.', en:'Together.', chapter:'Together'},
+
+      {type:'img',  src:'assets/photo41.jpg', ru:'Держать твою руку.', en:'To hold your hand.', chapter:'Together'},
+      {type:'img',  src:'assets/photo42.jpg', ru:'И идти дальше вместе.', en:'And move forward together.', chapter:'Together'},
+
+      // poetic line before Valentine
+      {type:'text', ru:'Я всё ещё хочу держать тебя за руку…', en:'I still want to hold your hand…', chapter:'Promise'},
+      {type:'text', ru:'…и путешествовать с тобой до самого конца.', en:'…and travel with you till the very end.', chapter:'Promise'},
+
+      // Valentine question alone
+      {type:'valentine', chapter:'Final'}
+    ];
+
+    // ======= timings =======
+    const IMG_MS   = 6500;
+    const VIDEO_MS = 9000;
+
+    // DOM
+    const mediaWrap = document.getElementById('mediaWrap');
+    const capRU = document.getElementById('capRU');
+    const capEN = document.getElementById('capEN');
+    const counter = document.getElementById('counter');
+    const chapterEl = document.getElementById('chapter');
+    const bgm = document.getElementById('bgm');
+    const startOverlay = document.getElementById('startOverlay');
+    const startBtn = document.getElementById('startBtn');
+    const musicBtn = document.getElementById('musicBtn');
+
+    let i = 0;
+    let timer = null;
+    let started = false;
+
+    function clearMedia(){
+      while(mediaWrap.firstChild) mediaWrap.removeChild(mediaWrap.firstChild);
+    }
+
+    function setCaption(item){
+      capRU.textContent = item.ru || '';
+      capEN.textContent = item.en || '';
+      chapterEl.textContent = `Chapter: ${item.chapter || ''}`;
+    }
+
+    function showSlide(index){
+      const item = sequence[index];
+      clearMedia();
+      setCaption(item);
+      counter.textContent = `${index+1} / ${sequence.length}`;
+
+      if(item.type === 'img'){
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = '';
+        img.className = 'fadeUpIn';
+        mediaWrap.appendChild(img);
+        scheduleNext(IMG_MS);
+
+      } else if(item.type === 'video'){
+        const v = document.createElement('video');
+        v.src = item.src;
+        v.muted = true;
+        v.autoplay = true;
+        v.loop = true;
+        v.playsInline = true;
+        v.preload = "auto";
+        v.className = 'fadeUpIn';
+        mediaWrap.appendChild(v);
+        v.play().catch(()=>{});
+        scheduleNext(VIDEO_MS);
+
+      } else if(item.type === 'text'){
+        const box = document.createElement('div');
+        box.style.width="100%";
+        box.style.height="100%";
+        box.style.display="flex";
+        box.style.flexDirection="column";
+        box.style.justifyContent="center";
+        box.style.alignItems="center";
+        box.style.color="#fff";
+        box.style.textShadow="0 6px 18px rgba(0,0,0,.55)";
+        box.className = 'fadeUpIn';
+
+        const ru = document.createElement('div');
+        ru.style.fontSize="30px";
+        ru.style.fontWeight="900";
+        ru.style.textAlign="center";
+        ru.style.margin="0 16px 12px 16px";
+        ru.textContent = item.ru || '';
+
+        const en = document.createElement('div');
+        en.style.fontSize="22px";
+        en.style.fontWeight="800";
+        en.style.textAlign="center";
+        en.style.margin="0 16px";
+        en.style.opacity=".96";
+        en.textContent = item.en || '';
+
+        box.appendChild(ru);
+        box.appendChild(en);
+        mediaWrap.appendChild(box);
+        scheduleNext(IMG_MS);
+
+      } else if(item.type === 'valentine'){
+        capRU.textContent = '';
+        capEN.textContent = '';
+        chapterEl.textContent = 'Chapter: Final';
+
+        const box = document.createElement('div');
+        box.id = "valentineBox";
+        box.className = 'fadeUpIn';
+
+        const h2 = document.createElement('h2');
+        h2.textContent = "Will you be my Valentine? 💘";
+
+        const btn = document.createElement('button');
+        btn.textContent = "Yes 💖";
+
+        const hug = document.createElement('img');
+        hug.id = "hug";
+        hug.src = "assets/hug.gif";
+        hug.alt = "hug";
+
+        btn.onclick = () => {
+          hug.style.display = "block";
+        };
+
+        box.appendChild(h2);
+        box.appendChild(btn);
+        box.appendChild(hug);
+        mediaWrap.appendChild(box);
+
+        if(timer) clearTimeout(timer);
+      }
+    }
+
+    function scheduleNext(ms){
+      if(timer) clearTimeout(timer);
+      timer = setTimeout(()=>{
+        i = Math.min(i+1, sequence.length-1);
+        showSlide(i);
+      }, ms);
+    }
+
+    function start(){
+      if(started) return;
+      started = true;
+      startOverlay.style.display='none';
+
+      bgm.volume = 0.75;
+      bgm.play().catch(()=>{});
+
+      showSlide(i);
+    }
+
+    musicBtn.addEventListener('click', ()=>{
+      if(bgm.paused){ bgm.play().catch(()=>{}); }
+      else { bgm.pause(); }
+    });
+
+    startBtn.addEventListener('click', start);
+  </script>
+</body>
+</html>
