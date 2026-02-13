@@ -214,22 +214,14 @@
 #lockBg{
   position: fixed;
   inset: 0;
-  display: none;
-  z-index: 999999;
-  background: radial-gradient(circle at top, rgba(255,180,210,.55), rgba(255,140,180,.25));
-}
-
-#lockCard{
-   position: fixed;
-  inset: 0;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 99999;
   background: rgba(255, 182, 193, 0.25);
   backdrop-filter: blur(10px);
 }
-    
+
 #lockCard{
   width: min(520px, 90vw);
   padding: 22px;
@@ -238,6 +230,7 @@
   box-shadow: 0 22px 50px rgba(0,0,0,0.25);
   text-align: center;
 }
+
 #pwInput{
   width: 80%;
   padding: 12px 14px;
@@ -245,24 +238,27 @@
   border: 1px solid rgba(255,255,255,0.35);
   outline: none;
   margin-top: 10px;
-}  
+}
+
 #unlockBtn{
   margin-top: 12px;
   padding: 10px 18px;
   border-radius: 999px;
   border: 0;
   cursor: pointer;
-}  
-/* floating hearts during lock */
+}
+
+/* floating hearts */
 .lock-heart{
   position: fixed;
   bottom: -40px;
   font-size: 18px;
   opacity: .35;
   animation: floatUp 7s linear infinite;
-  z-index: 999998;
-  pointer-events:none;
+  z-index: 99998;
+  pointer-events: none;
 }
+
 @keyframes floatUp{
   from { transform: translateY(0) translateX(0); }
   to   { transform: translateY(-110vh) translateX(40px); }
@@ -272,52 +268,62 @@
 
 <body>
   <div id="lockBg">
-  <div id="lockHearts"></div>
-
   <div id="lockCard">
     <h1>For you, with love 💗</h1>
+    <p>“Every day with you feels like my favorite chapter.”</p>
     <p>Enter the secret word to open our story ✨</p>
 
     <input id="pwInput" type="password" placeholder="Secret word…" />
     <button id="unlockBtn">Unlock 💖</button>
   </div>
+</div>
 
-  <audio id="lockBgm" src="music.mp3" loop></audio>
+<audio id="lockMusic" src="assets/music.mp3" loop preload="auto"></audio>
 </div>
   <script>
+ <script>
   const correctPassword = "ГОКУЛТАНЬЯ143@";
 
-// show lock screen
-const lockBg = document.getElementById("lockBg");
-lockBg.style.display = "flex";
+  const lockBg = document.getElementById("lockBg");
+  const pwInput = document.getElementById("pwInput");
+  const unlockBtn = document.getElementById("unlockBtn");
+  const lockMusic = document.getElementById("lockMusic");
 
-// try play music (Safari will allow after first click)
-const lockMusic = document.getElementById("lockMusic");
-document.addEventListener("click", () => {
-  lockMusic.play().catch(()=>{});
-}, { once:true });
-
-function unlock() {
-  const userPassword = document.getElementById("pwInput").value;
-
-  if (userPassword !== correctPassword) {
-    alert("❌ Wrong password");
-    return;
+  // hearts behind the lock card
+  for (let i = 0; i < 26; i++) {
+    const h = document.createElement("div");
+    h.className = "lock-heart";
+    h.textContent = "💗";
+    h.style.left = (Math.random() * 100) + "vw";
+    h.style.animationDuration = (5 + Math.random() * 6) + "s";
+    h.style.animationDelay = (Math.random() * 3) + "s";
+    h.style.fontSize = (14 + Math.random() * 18) + "px";
+    document.body.appendChild(h);
   }
 
-  // stop lock music
-  lockMusic.pause();
-  lockMusic.currentTime = 0;
+  function startMusic(){
+    lockMusic.volume = 0.35;
+    lockMusic.play().catch(()=>{});
+  }
 
-  // hide lock screen
-  lockBg.style.display = "none";
-}
+  unlockBtn.addEventListener("click", () => {
+    const userPassword = pwInput.value || "";
+    if (userPassword !== correctPassword) {
+      alert("❌ Wrong password");
+      pwInput.value = "";
+      pwInput.focus();
+      return;
+    }
 
-document.getElementById("unlockBtn").addEventListener("click", unlock);
-document.getElementById("pwInput").addEventListener("keydown", (e) => {
-  if (e.key === "Enter") unlock();
-});
- 
+    lockBg.style.display = "none";
+    startMusic();
+  });
+
+  pwInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") unlockBtn.click();
+  });
+
+  window.addEventListener("load", () => pwInput.focus());
 </script>
   <!-- hearts -->
   <script>
