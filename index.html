@@ -278,7 +278,7 @@
   </div>
 </div>
 
-<audio id="lockMusic" src="assets/music.mp3" loop preload="auto"></audio>
+<audio id="lockMusic" src="music.mp3" loop preload="auto"></audio>
 </div>
   <script>
  <script>
@@ -315,8 +315,15 @@
       return;
     }
 
+    // hide lock screen
     lockBg.style.display = "none";
-    startMusic();
+
+    // stop lock music (optional)
+    lockMusic.pause();
+    lockMusic.currentTime = 0;
+
+    // START THE STORY    
+    showslide(0);
   });
 
   pwInput.addEventListener("keydown", (e) => {
