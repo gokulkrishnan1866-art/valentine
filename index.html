@@ -187,7 +187,7 @@
       background: rgba(255,255,255,.10);
       padding: 10px;
     }
-    /* PowerPoint-style image zoom-out */
+    /* PowerPoint / cinematic zoom-out */
 #stage img {
   max-width: 90%;
   max-height: 85vh;
@@ -196,11 +196,18 @@
   object-fit: contain;
   display: block;
   margin: auto;
-}
 
-/* allow stage to show full image */
-#stage {
-  overflow: visible;
+  transform: scale(1.12);
+  animation: zoomOut 6s ease-in-out forwards;
+}
+    /* animation must be OUTSIDE */
+@keyframes zoomOut {
+  from { 
+    transform: scale(1.12); 
+  }
+  to  { 
+    transform: scale(1.0); 
+  }
 }
   </style>
 </head>
