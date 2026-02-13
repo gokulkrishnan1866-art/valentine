@@ -214,25 +214,22 @@
 #lockBg{
   position: fixed;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255,182,193,.95), rgba(255,204,220,.95));
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display: none;
   z-index: 999999;
+  background: radial-gradient(circle at top, rgba(255,180,210,.55), rgba(255,140,180,.25));
 }
 
 #lockCard{
-  width: min(520px, 92vw);
-  padding: 28px 22px;
-  border-radius: 22px;
-  background: rgba(255,255,255,.22);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 60px rgba(0,0,0,.18);
-  text-align:center;
-  color: rgba(255,255,255,.92);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  padding: 26px 28px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.18);
+  backdrop-filter: blur(12px);
+  text-align: center;
 }
-
 #lockCard h1{
   margin: 0 0 10px;
   font-size: 26px;
@@ -270,33 +267,28 @@
     <p>Enter the secret word to open our story ✨</p>
   </div>
 </div>
-<script>
+  <script>
   const correctPassword = "ГОКУЛТАНЬЯ143@";
 
-  // hearts behind the prompt
-  for (let i = 0; i < 26; i++) {
-    const h = document.createElement("div");
-    h.className = "lock-heart";
-    h.textContent = "💗";
-    h.style.left = (Math.random() * 100) + "vw";
-    h.style.fontSize = (14 + Math.random() * 18) + "px";
-    h.style.animationDuration = (6 + Math.random() * 6) + "s";
-    h.style.animationDelay = (Math.random() * 2) + "s";
-    document.body.appendChild(h);
-  }
+  // 1) show background first
+  const lockBg = document.getElementById("lockBg");
+  lockBg.style.display = "block";
 
-  setTimeout(() => {
-    const userPassword = prompt("💗 Enter the secret word");
+  // 2) let browser paint one frame, then prompt
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const userPassword = prompt("💗 Enter the secret word");
 
-    if (userPassword !== correctPassword) {
-      document.body.innerHTML = "";
-      document.body.style.background = "#000";
-      alert("❌ Wrong password");
-    } else {
-      document.getElementById("lockBg")?.remove();
-      document.querySelectorAll(".lock-heart").forEach(x => x.remove());
-    }
-  }, 250);
+      if (userPassword !== correctPassword) {
+        alert("❌ Wrong password");
+        location.reload();
+        return;
+      }
+
+      // success: hide lock screen
+      lockBg.style.display = "none";
+    }, 50);
+  });
 </script>
   <!-- hearts -->
   <script>
