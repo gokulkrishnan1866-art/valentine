@@ -426,7 +426,40 @@
 
         const btn = document.createElement('button');
         btn.textContent = "Yes 💖";
+// NO button (runs away)
+const noBtn = document.createElement('button');
+noBtn.textContent = "No 😭";
 
+noBtn.style.position = "absolute";
+noBtn.style.left = "60%";
+noBtn.style.top = "70%";
+noBtn.style.padding = "10px 18px";
+noBtn.style.borderRadius = "999px";
+noBtn.style.border = "0";
+noBtn.style.cursor = "pointer";
+
+// move function
+function moveNo() {
+  const boxRect = box.getBoundingClientRect();
+  const btnRect = noBtn.getBoundingClientRect();
+
+  const maxX = boxRect.width - btnRect.width;
+  const maxY = boxRect.height - btnRect.height;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+
+// run away on hover + touch
+noBtn.addEventListener("mouseenter", moveNo);
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  moveNo();
+}, { passive: false });
         const hug = document.createElement('img');
         hug.id = "hug";
         hug.src = "hug.gif";
@@ -437,7 +470,8 @@
         };
 
         box.appendChild(h2);
-        box.appendChild(btn);
+box.appendChild(btn);     // YES
+box.appendChild(noBtn);  // NO (runner)
         box.appendChild(hug);
         mediaWrap.appendChild(box);
 
