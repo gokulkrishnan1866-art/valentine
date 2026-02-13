@@ -10,7 +10,6 @@
     :root{
       --pink1:#ffb6c1;
       --pink2:#ffc0cb;
-      --glass: rgba(255,255,255,.18);
       --shadow: 0 22px 50px rgba(0,0,0,.25);
     }
 
@@ -62,7 +61,7 @@
       position:relative;
     }
 
-    /* caption on top – NO blur panel */
+    /* caption */
     .caption{
       position:absolute;
       top:16px; left:18px; right:18px;
@@ -70,7 +69,6 @@
       color:#fff;
       text-shadow: 0 6px 18px rgba(0,0,0,.55);
       z-index:5;
-      padding: 0;
     }
     .caption .ru{font-size:20px; font-weight:700; margin:0 0 6px 0;}
     .caption .en{font-size:16px; font-weight:600; margin:0; opacity:.95;}
@@ -78,7 +76,7 @@
     /* media area */
     .mediaWrap{
       position:absolute;
-      inset: 70px 18px 72px 18px; /* leaves room for caption & footer */
+      inset: 70px 18px 72px 18px;
       display:flex;
       justify-content:center;
       align-items:center;
@@ -87,20 +85,17 @@
       background: rgba(255,255,255,.10);
     }
 
-    img, video{
+    .mediaWrap img, .mediaWrap video{
       width:100%;
       height:100%;
-      object-fit: contain;       /* shows full image/video */
+      object-fit: contain;
       object-position:center;
       border-radius: 20px;
       display:block;
       background: rgba(0,0,0,.08);
     }
 
-    /* slide animation */
-    .fadeUpIn{
-      animation: fadeUp .9s ease both;
-    }
+    .fadeUpIn{ animation: fadeUp .9s ease both; }
     @keyframes fadeUp{
       from{ opacity:0; transform: translateY(26px); }
       to{ opacity:1; transform: translateY(0); }
@@ -117,6 +112,8 @@
       text-shadow: 0 6px 18px rgba(0,0,0,.55);
       z-index:6;
       font-weight:700;
+      gap:10px;
+      flex-wrap:wrap;
     }
     .pill{
       background: rgba(255,255,255,.18);
@@ -141,7 +138,7 @@
     }
     button:active{ transform: translateY(1px); }
 
-    /* start overlay (fixes Safari autoplay limits) */
+    /* start overlay */
     #startOverlay{
       position:fixed; inset:0;
       display:flex;
@@ -177,8 +174,9 @@
       color:#fff;
       text-shadow: 0 6px 18px rgba(0,0,0,.55);
       gap:14px;
+      position:relative;
     }
-    #valentineBox h2{margin:0; font-size:36px;}
+    #valentineBox h2{margin:0; font-size:34px; text-align:center; padding:0 16px;}
     #hug{
       display:none;
       max-width:min(520px, 86%);
@@ -188,161 +186,73 @@
       background: rgba(255,255,255,.10);
       padding: 10px;
     }
-    /* PowerPoint / cinematic zoom-out */
-#stage img {
-  max-width: 90%;
-  max-height: 85vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: auto;
 
-  transform: scale(1.12);
-  animation: zoomOut 6s ease-in-out forwards;
-}
-    /* animation must be OUTSIDE */
-@keyframes zoomOut {
-  from { 
-    transform: scale(1.12); 
-  }
-  to  { 
-    transform: scale(1.0); 
-  }
-}
-    /* ===== Password intro background ===== */
-#lockBg{
-  position: fixed;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 99999;
-  background: rgba(255, 182, 193, 0.25);
-  backdrop-filter: blur(10px);
-}
-
-#lockCard{
-  width: min(520px, 90vw);
-  padding: 22px;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.18);
-  box-shadow: 0 22px 50px rgba(0,0,0,0.25);
-  text-align: center;
-}
-
-#pwInput{
-  width: 80%;
-  padding: 12px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.35);
-  outline: none;
-  margin-top: 10px;
-}
-
-#unlockBtn{
-  margin-top: 12px;
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 0;
-  cursor: pointer;
-}
-
-/* floating hearts */
-.lock-heart{
-  position: fixed;
-  bottom: -40px;
-  font-size: 18px;
-  opacity: .35;
-  animation: floatUp 7s linear infinite;
-  z-index: 99998;
-  pointer-events: none;
-}
-
-@keyframes floatUp{
-  from { transform: translateY(0) translateX(0); }
-  to   { transform: translateY(-110vh) translateX(40px); }
-}
+    /* Password intro */
+    #lockBg{
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      background: rgba(255, 182, 193, 0.25);
+      backdrop-filter: blur(10px);
+    }
+    #lockCard{
+      width: min(520px, 90vw);
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.18);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.25);
+      text-align: center;
+      color:#fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    #pwInput{
+      width: 80%;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      outline: none;
+      margin-top: 10px;
+    }
+    #unlockBtn{
+      margin-top: 12px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+    }
+    .lock-heart{
+      position: fixed;
+      bottom: -40px;
+      font-size: 18px;
+      opacity: .35;
+      animation: floatUp 7s linear infinite;
+      z-index: 99998;
+      pointer-events: none;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Lock screen -->
   <div id="lockBg">
-  <div id="lockCard">
-    <h1>For you, with love 💗</h1>
-    <p>“Every day with you feels like my favorite chapter.”</p>
-    <p>Enter the secret word to open our story ✨</p>
-
-    <input id="pwInput" type="password" placeholder="Secret word…" />
-    <button id="unlockBtn">Unlock 💖</button>
+    <div id="lockCard">
+      <h1>For you, with love 💗</h1>
+      <p>“Every day with you feels like my favorite chapter.”</p>
+      <p>Enter the secret word to open our story ✨</p>
+      <input id="pwInput" type="password" placeholder="Secret word…" />
+      <button id="unlockBtn">Unlock 💖</button>
+    </div>
   </div>
-<audio id="lockMusic" src="music.mp3" loop preload="auto"></audio>
-</div>
-  <script>
-  const correctPassword = "GOKULTANYA143@";
 
-  const lockBg = document.getElementById("lockBg");
-  const pwInput = document.getElementById("pwInput");
-  const unlockBtn = document.getElementById("unlockBtn");
-  const lockMusic = document.getElementById("lockMusic");
+  <audio id="lockMusic" src="music.mp3" loop preload="auto"></audio>
 
-  // hearts behind the lock card
-  for (let i = 0; i < 26; i++) {
-    const h = document.createElement("div");
-    h.className = "lock-heart";
-    h.textContent = "💗";
-    h.style.left = (Math.random() * 100) + "vw";
-    h.style.animationDuration = (5 + Math.random() * 6) + "s";
-    h.style.animationDelay = (Math.random() * 3) + "s";
-    h.style.fontSize = (14 + Math.random() * 18) + "px";
-    document.body.appendChild(h);
-  }
-
-  function startMusic(){
-    lockMusic.volume = 0.35;
-    lockMusic.play().catch(()=>{});
-  }
-
-  unlockBtn.addEventListener("click", () => {
-    const userPassword = pwInput.value || "";
-    if (userPassword !== correctPassword) {
-      alert("❌ Wrong password");
-      pwInput.value = "";
-      pwInput.focus();
-      return;
-    }
-
-    // hide lock screen
-    lockBg.style.display = "none";
-
-    // stop lock music (optional)
-    lockMusic.pause();
-    lockMusic.currentTime = 0;
-
-    // START THE STORY    
-    showslide(0);
-  });
-
-  pwInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") unlockBtn.click();
-  });
-
-  window.addEventListener("load", () => pwInput.focus());
-</script>
-  <!-- hearts -->
-  <script>
-    for(let i=0;i<26;i++){
-      const h=document.createElement('div');
-      h.className='heart';
-      h.textContent='❤';
-      h.style.left = (Math.random()*100)+'vw';
-      h.style.animationDuration = (5+Math.random()*6)+'s';
-      h.style.animationDelay = (Math.random()*3)+'s';
-      h.style.fontSize = (16+Math.random()*18)+'px';
-      document.addEventListener('DOMContentLoaded', ()=>document.body.appendChild(h));
-    }
-  </script>
-
+  <!-- Start overlay -->
   <div id="startOverlay">
     <div class="startCard">
       <h1>Our Story 💗</h1>
@@ -354,6 +264,7 @@
     </div>
   </div>
 
+  <!-- Main stage -->
   <div id="stage">
     <div class="frame">
       <div class="caption">
@@ -364,15 +275,9 @@
       <div class="mediaWrap" id="mediaWrap"></div>
 
       <div class="footer">
-        <div class="pill">
-          <span class="small" id="chapter">Chapter</span>
-        </div>
-        <div class="pill">
-          <span class="small" id="counter">1 / 1</span>
-        </div>
-        <div class="pill">
-          <button id="musicBtn">Music ♪</button>
-        </div>
+        <div class="pill"><span class="small" id="chapter">Chapter</span></div>
+        <div class="pill"><span class="small" id="counter">1 / 1</span></div>
+        <div class="pill"><button id="musicBtn">Music ♪</button></div>
       </div>
     </div>
   </div>
@@ -380,88 +285,43 @@
   <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
 
   <script>
-    // ======= ORDER (updated per your rules for video05–video09) =======
+    // ===== Background hearts (add once) =====
+    (function addHearts(){
+      for(let i=0;i<26;i++){
+        const h=document.createElement('div');
+        h.className='heart';
+        h.textContent='❤';
+        h.style.left = (Math.random()*100)+'vw';
+        h.style.animationDuration = (5+Math.random()*6)+'s';
+        h.style.animationDelay = (Math.random()*3)+'s';
+        h.style.fontSize = (16+Math.random()*18)+'px';
+        document.body.appendChild(h);
+      }
+    })();
+
+    // ===== Lock hearts =====
+    (function addLockHearts(){
+      for (let i = 0; i < 26; i++) {
+        const h = document.createElement("div");
+        h.className = "lock-heart";
+        h.textContent = "💗";
+        h.style.left = (Math.random() * 100) + "vw";
+        h.style.animationDuration = (5 + Math.random() * 6) + "s";
+        h.style.animationDelay = (Math.random() * 3) + "s";
+        h.style.fontSize = (14 + Math.random() * 18) + "px";
+        document.body.appendChild(h);
+      }
+    })();
+
+    // ======= ORDER =======
     const sequence = [
       {type:'text', ru:'История двух красивых людей…', en:'The story of two beautiful souls…', chapter:'Prologue'},
-
-      // Online
       {type:'img',  src:'photo1.jpg',  ru:'Мы встретились онлайн.', en:'We met online.', chapter:'Online'},
-      {type:'img',  src:'photo2.jpg',  ru:'Сначала были сообщения.', en:'First, it was texts.', chapter:'Online'},
-      {type:'img',  src:'photo3.jpg',  ru:'Потом голос — и стало теплее.', en:'Then voice calls — and it felt warmer.', chapter:'Online'},
-      {type:'img',  src:'photo4.jpg',  ru:'Мы смеялись до слёз.', en:'We laughed until it hurt.', chapter:'Online'},
-      {type:'img',  src:'photo5.jpg',  ru:'Иногда было тяжело…', en:'Sometimes it was hard…', chapter:'Online'},
-      {type:'img',  src:'photo6.jpg',  ru:'Но мы оставались рядом.', en:'But we stayed close.', chapter:'Online'},
-      {type:'img',  src:'photo7.jpg',  ru:'Ночи разговоров.', en:'Nights full of talks.', chapter:'Online'},
-      {type:'img',  src:'photo8.jpg',  ru:'И маленькие моменты счастья.', en:'And small moments of happiness.', chapter:'Online'},
-
       {type:'video',src:'video01.mp4', ru:'Видеозвонки — и твоя улыбка.', en:'Video calls — and your smile.', chapter:'Online'},
-      {type:'video',src:'video02.mp4', ru:'Смешные минуты, которые остаются.', en:'Funny moments that stay forever.', chapter:'Online'},
-
-      {type:'img',  src:'photo9.jpg',  ru:'Мы делились всем.', en:'We shared everything.', chapter:'Online'},
-      {type:'img',  src:'photo10.jpg', ru:'Даже молчание было уютным.', en:'Even silence felt safe.', chapter:'Online'},
-      {type:'img',  src:'photo11.jpg', ru:'Дни ожидания.', en:'Days of waiting.', chapter:'Online'},
-      {type:'img',  src:'photo12.jpg', ru:'И вера, что мы встретимся.', en:'And belief we would meet.', chapter:'Online'},
-
-      {type:'video',src:'video03.mp4', ru:'Ещё один звонок… ближе к встрече.', en:'Another call… closer to meeting.', chapter:'Online'},
-      {type:'video',src:'video04.mp4', ru:'Мы уже были “мы”.', en:'We were already “us”.', chapter:'Online'},
-
-      // Meeting
-      {type:'img',  src:'photo14.jpg', ru:'И вот… день пришёл.', en:'And then… the day arrived.', chapter:'Meeting'},
-      {type:'img',  src:'photo15.jpg', ru:'Я готовился увидеть тебя.', en:'I prepared myself to see you.', chapter:'Meeting'},
-      {type:'img',  src:'photo16.jpg', ru:'Сердце било сильнее.', en:'My heart beat louder.', chapter:'Meeting'},
-      {type:'img',  src:'photo13.jpg', ru:'Наконец — рядом.', en:'Finally — together.', chapter:'Meeting'},
-      {type:'img',  src:'photo17.jpg', ru:'Первый настоящий момент.', en:'Our first real moment.', chapter:'Meeting'},
-
-      // Together (travel etc.)
-      {type:'img',  src:'photo18.jpg', ru:'С этого момента мы шли вместе.', en:'From that moment, we walked together.', chapter:'Together'},
-      {type:'img',  src:'photo19.jpg', ru:'Новые улицы, новые воспоминания.', en:'New streets, new memories.', chapter:'Together'},
-      {type:'img',  src:'photo20.jpg', ru:'И мир стал мягче.', en:'And the world became softer.', chapter:'Together'},
-      {type:'img',  src:'photo21.jpg', ru:'Плечом к плечу.', en:'Side by side.', chapter:'Together'},
-      {type:'img',  src:'photo22.jpg', ru:'Счастье — это “мы”.', en:'Happiness is “us”.', chapter:'Together'},
-      {type:'img',  src:'photo23.jpg', ru:'Просто быть рядом.', en:'Just being close.', chapter:'Together'},
-      {type:'img',  src:'photo24.jpg', ru:'Каждый день как подарок.', en:'Every day felt like a gift.', chapter:'Together'},
-
-      // ✅ video05 after photo24
-      {type:'video',src:'video05.mp4', ru:'Ещё один момент — навсегда.', en:'Another moment — forever.', chapter:'Together'},
-
-      {type:'img',  src:'photo25.jpg', ru:'Взгляды, которые говорят всё.', en:'Looks that say everything.', chapter:'Together'},
-      {type:'img',  src:'photo26.jpg', ru:'Смех, который не забывается.', en:'Laughter you never forget.', chapter:'Together'},
-      {type:'img',  src:'photo27.jpg', ru:'И планы на дальше.', en:'And plans for what’s next.', chapter:'Together'},
-      {type:'img',  src:'photo28.jpg', ru:'С тобой — спокойно.', en:'With you — I feel calm.', chapter:'Together'},
-      {type:'img',  src:'photo29.jpg', ru:'Небо было красивее.', en:'The sky looked prettier.', chapter:'Together'},
-
-      // ✅ video06 after photo29
-      {type:'video',src:'video06.mp4', ru:'С тобой всё имеет смысл.', en:'With you, everything makes sense.', chapter:'Together'},
-
-      {type:'img',  src:'photo30.jpg', ru:'Море — теплее.', en:'The sea felt warmer.', chapter:'Together'},
-      {type:'img',  src:'photo31.jpg', ru:'А время — быстрее.', en:'And time — faster.', chapter:'Together'},
-      {type:'img',  src:'photo32.jpg', ru:'Я выбираю тебя снова и снова.', en:'I choose you again and again.', chapter:'Together'},
-      {type:'img',  src:'photo33.jpg', ru:'Пусть будет ещё больше “нас”.', en:'Let there be more of “us”.', chapter:'Together'},
-      {type:'img',  src:'photo34.jpg', ru:'Ещё больше дорог.', en:'More roads ahead.', chapter:'Together'},
-      {type:'img',  src:'photo35.jpg', ru:'Ещё больше закатов.', en:'More sunsets.', chapter:'Together'},
-      {type:'img',  src:'photo36.jpg', ru:'И простых моментов.', en:'And simple moments.', chapter:'Together'},
-      {type:'img',  src:'photo37.jpg', ru:'Которые становятся вечностью.', en:'That turn into forever.', chapter:'Together'},
-      {type:'img',  src:'photo38.jpg', ru:'Ты — мой дом.', en:'You are my home.', chapter:'Together'},
-      {type:'img',  src:'photo39.jpg', ru:'Где бы мы ни были.', en:'Wherever we are.', chapter:'Together'},
-      {type:'img',  src:'photo40.jpg', ru:'И я хочу продолжать.', en:'And I want to continue.', chapter:'Together'},
-
-      // ✅ video07 after photo40, then video08, then video09
-      {type:'video',src:'video07.mp4', ru:'Я люблю нашу историю.', en:'I love our story.', chapter:'Together'},
-      {type:'video',src:'video08.mp4', ru:'И хочу ещё главы.', en:'And I want more chapters.', chapter:'Together'},
-      {type:'video',src:'video09.mp4', ru:'Вместе.', en:'Together.', chapter:'Together'},
-
-      {type:'img',  src:'photo41.jpg', ru:'Держать твою руку.', en:'To hold your hand.', chapter:'Together'},
-      {type:'img',  src:'photo42.jpg', ru:'И идти дальше вместе.', en:'And move forward together.', chapter:'Together'},
-
-      // poetic line before Valentine
-      {type:'text', ru:'Я всё ещё хочу держать тебя за руку…', en:'I still want to hold your hand…', chapter:'Promise'},
-      {type:'text', ru:'…и путешествовать с тобой до самого конца.', en:'…and travel with you till the very end.', chapter:'Promise'},
-
-      // Valentine question alone
       {type:'valentine', chapter:'Final'}
     ];
 
-    // ======= timings =======
+    // timings
     const IMG_MS   = 6500;
     const VIDEO_MS = 9000;
 
@@ -476,9 +336,15 @@
     const startBtn = document.getElementById('startBtn');
     const musicBtn = document.getElementById('musicBtn');
 
+    const lockBg = document.getElementById("lockBg");
+    const pwInput = document.getElementById("pwInput");
+    const unlockBtn = document.getElementById("unlockBtn");
+    const lockMusic = document.getElementById("lockMusic");
+
     let i = 0;
     let timer = null;
     let started = false;
+    let unlocked = false;
 
     function clearMedia(){
       while(mediaWrap.firstChild) mediaWrap.removeChild(mediaWrap.firstChild);
@@ -490,6 +356,15 @@
       chapterEl.textContent = `Chapter: ${item.chapter || ''}`;
     }
 
+    function scheduleNext(ms){
+      if(timer) clearTimeout(timer);
+      timer = setTimeout(()=>{
+        i = Math.min(i+1, sequence.length-1);
+        showSlide(i);
+      }, ms);
+    }
+
+    // IMPORTANT: function name is showSlide (case-sensitive)
     function showSlide(index){
       const item = sequence[index];
       clearMedia();
@@ -507,14 +382,19 @@
       } else if(item.type === 'video'){
         const v = document.createElement('video');
         v.src = item.src;
-        v.muted = true;
+        v.muted = true;          // required for autoplay on Safari
         v.autoplay = true;
         v.loop = true;
-        v.playsInline = true;
+        v.playsInline = true;    // required on iOS Safari
         v.preload = "auto";
+        v.controls = true;       // shows controls if autoplay fails (debug helper)
         v.className = 'fadeUpIn';
         mediaWrap.appendChild(v);
-        v.play().catch(()=>{});
+
+        // try to play; if blocked, user must tap play once (Safari)
+        const p = v.play();
+        if (p && p.catch) p.catch(()=>{});
+
         scheduleNext(VIDEO_MS);
 
       } else if(item.type === 'text'){
@@ -547,6 +427,7 @@
         box.appendChild(ru);
         box.appendChild(en);
         mediaWrap.appendChild(box);
+
         scheduleNext(IMG_MS);
 
       } else if(item.type === 'valentine'){
@@ -556,77 +437,65 @@
 
         const box = document.createElement('div');
         box.id = "valentineBox";
-        box.style.position = "relative";
-        box.style.minHeight = "200px";
         box.className = 'fadeUpIn';
 
         const h2 = document.createElement('h2');
-        h2.textContent = "Ты станешь моей Валентинкой Танюша ? 💘";
-        h2.textContent = "Will you be my Valentine Танюша ? 💘";
+        h2.innerHTML = `Ты станешь моей Валентинкой, Танюша? 💘<br>Will you be my Valentine, Танюша? 💘`;
 
-        const btn = document.createElement('button');
-        btn.textContent = "Yes Да 💖";
-// NO button (runs away)
-const noBtn = document.createElement('button');
-noBtn.textContent = "No Нет 😭";
+        const yesBtn = document.createElement('button');
+        yesBtn.textContent = "Yes Да 💖";
 
-noBtn.style.position = "absolute";
-noBtn.style.left = "50%";
-noBtn.style.top = "50%";
-noBtn.style.transform = "translate(-50%, -50%)";
-noBtn.style.zIndex = "9999";
-noBtn.style.padding = "10px 18px";
-noBtn.style.borderRadius = "999px";
-noBtn.style.border = "0";
-noBtn.style.cursor = "pointer";
+        const noBtn = document.createElement('button');
+        noBtn.textContent = "No Нет 😭";
+        noBtn.style.position = "absolute";
+        noBtn.style.left = "50%";
+        noBtn.style.top = "60%";
+        noBtn.style.transform = "translate(-50%, -50%)";
+        noBtn.style.zIndex = "9999";
+        noBtn.style.padding = "10px 18px";
+        noBtn.style.borderRadius = "999px";
+        noBtn.style.border = "0";
+        noBtn.style.cursor = "pointer";
 
-// move function
-function moveNo() {
-  const boxRect = box.getBoundingClientRect();
-  const btnRect = noBtn.getBoundingClientRect();
-
-  const maxX = boxRect.width - btnRect.width;
-  const maxY = boxRect.height - btnRect.height;
-
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-// run away on hover + touch
-noBtn.addEventListener("mouseenter", moveNo);
-noBtn.addEventListener("mouseover", moveNo);
-noBtn.addEventListener("touchstart", (e) => {
-  e.preventDefault();
-  moveNo();
-}, { passive: false });
         const hug = document.createElement('img');
         hug.id = "hug";
         hug.src = "hug.gif";
         hug.alt = "hug";
 
-        btn.onclick = () => {
+        function moveNo(){
+          const boxRect = box.getBoundingClientRect();
+          const btnRect = noBtn.getBoundingClientRect();
+
+          const maxX = Math.max(0, boxRect.width - btnRect.width);
+          const maxY = Math.max(0, boxRect.height - btnRect.height);
+
+          const x = Math.random() * maxX;
+          const y = Math.random() * maxY;
+
+          noBtn.style.left = x + "px";
+          noBtn.style.top = y + "px";
+          noBtn.style.transform = "translate(0,0)";
+        }
+
+        noBtn.addEventListener("mouseenter", moveNo);
+        noBtn.addEventListener("mouseover", moveNo);
+        noBtn.addEventListener("touchstart", (e) => {
+          e.preventDefault();
+          moveNo();
+        }, { passive: false });
+
+        yesBtn.onclick = () => {
           hug.style.display = "block";
         };
 
         box.appendChild(h2);
-box.appendChild(btn);     // YES
-box.appendChild(noBtn);  // NO (runner)
-        box.appendChild(hug); // GIF
+        box.appendChild(yesBtn);
+        box.appendChild(noBtn);
+        box.appendChild(hug);
         mediaWrap.appendChild(box);
 
         if(timer) clearTimeout(timer);
       }
-    }
-
-    function scheduleNext(ms){
-      if(timer) clearTimeout(timer);
-      timer = setTimeout(()=>{
-        i = Math.min(i+1, sequence.length-1);
-        showSlide(i);
-      }, ms);
     }
 
     function start(){
@@ -634,18 +503,57 @@ box.appendChild(noBtn);  // NO (runner)
       started = true;
       startOverlay.style.display='none';
 
+      // background music (only after user gesture)
       bgm.volume = 0.75;
-      bgm.play().catch(()=>{});
+      const p = bgm.play();
+      if (p && p.catch) p.catch(()=>{});
 
-      showSlide(i);
+      // only start slides after unlock
+      if (unlocked) showSlide(i);
     }
 
     musicBtn.addEventListener('click', ()=>{
-      if(bgm.paused){ bgm.play().catch(()=>{}); }
-      else { bgm.pause(); }
+      if(bgm.paused){
+        const p = bgm.play();
+        if (p && p.catch) p.catch(()=>{});
+      } else {
+        bgm.pause();
+      }
     });
 
     startBtn.addEventListener('click', start);
+
+    // ===== Lock logic =====
+    const correctPassword = "GOKULTANYA143@";
+
+    unlockBtn.addEventListener("click", () => {
+      const userPassword = pwInput.value || "";
+      if (userPassword !== correctPassword) {
+        alert("❌ Wrong password");
+        pwInput.value = "";
+        pwInput.focus();
+        return;
+      }
+
+      unlocked = true;
+      lockBg.style.display = "none";
+
+      lockMusic.pause();
+      lockMusic.currentTime = 0;
+
+      // if user already pressed START, begin immediately
+      if (started) showSlide(0);
+    });
+
+    pwInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") unlockBtn.click();
+    });
+
+    window.addEventListener("load", () => {
+      pwInput.focus();
+      // Optional: start lock music ONLY after first user interaction
+      // document.body.addEventListener("click", () => { lockMusic.play().catch(()=>{}); }, { once:true });
+    });
   </script>
 </body>
 </html>
